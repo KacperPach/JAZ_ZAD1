@@ -27,9 +27,7 @@ public class PotionsController {
     }
 
     @PutMapping("/updatePotion/{id}")
-    public PotionsResponse updatePotion(@PathVariable UUID id, @RequestBody PotionsCreateRequest req) {
-        return service.updatePotion(id, req);
-    }
+    public PotionsResponse updatePotion(@PathVariable UUID id, @RequestBody PotionsCreateRequest req) { return service.updatePotion(id, req); }
 
     @DeleteMapping("/deletePotion/{id}")
     public void deletePotion(@PathVariable UUID id) {
