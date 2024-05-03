@@ -5,32 +5,28 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PotionsService {
 
     private final PotionsRepository repository;
+    private final PotionsMapper mapper;
 
     public PotionsResponse addPotion(PotionsCreateRequest request) {
-        Potion newPotion = new Potion();
-        newPotion.setName(request.getName());
-        newPotion.setDescription(request.getDescription());
-        newPotion.setPrice(request.getPrice());
+        Potion saved = repository.save(mapper.mapToPotion(request));
 
-        Potion saved = repository.save(newPotion);
-
-        return new PotionsResponse(saved.getId(), saved.getName());
+        return mapper.mapToPotionsResponse(saved);
     }
 
     public List<PotionsResponse> getAllPotions () {
-        return repository.findAll().stream().map( p -> new PotionsResponse(p.getId(),p.getName())).toList();
+        return repository.findAll().stream().map(mapper::mapToPotionsResponse).collect(Collectors.toList());
     }
 
     public PotionsResponse getPotion(UUID id) {
         Potion saved = repository.getReferenceById(id);
-
-        return new PotionsResponse(saved.getId(),saved.getName());
+        return mapper.mapToPotionsResponse(saved);
     }
 
     public PotionsResponse updatePotion(UUID id, PotionsCreateRequest req) {
@@ -40,7 +36,7 @@ public class PotionsService {
         potion.setDescription(req.getDescription());
         repository.save(potion);
 
-        return new PotionsResponse(potion.getId(),potion.getName());
+        return mapper.mapToPotionsResponse(potion);
     }
 
     public void deletePotion(UUID id) {
