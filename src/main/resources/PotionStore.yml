@@ -1,0 +1,119 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /updatePotion/{id}:
+    put:
+      tags:
+        - potions
+      operationId: updatePotion
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PotionsCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PotionsResponse'
+  /addPotion:
+    post:
+      tags:
+        - potions
+      operationId: createPotion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PotionsCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PotionsResponse'
+  /getPotions:
+    get:
+      tags:
+        - potions
+      operationId: getPotions
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PotionsResponse'
+  /getPotion/{id}:
+    get:
+      tags:
+        - potions
+      operationId: getPotion
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PotionsResponse'
+  /deletePotion/{id}:
+    delete:
+      tags:
+        - potions
+      operationId: deletePotion
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    PotionsCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: double
+    PotionsResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string

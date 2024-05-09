@@ -1,4 +1,4 @@
-package com.JAZ1.zad1;
+package com.JAZ1.zad1.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
