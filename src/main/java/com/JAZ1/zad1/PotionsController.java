@@ -27,7 +27,8 @@ public class PotionsController implements PotionsApi {
 
     @GetMapping("/getPotion/{id}")
     public ResponseEntity<PotionsResponse> getPotion(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getPotion(id));
+        PotionsResponse res = service.getPotion(id);
+        return ResponseEntity.ok(res);
     }
 
     @PutMapping("/updatePotion/{id}")
