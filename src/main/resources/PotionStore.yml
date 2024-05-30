@@ -97,6 +97,25 @@ paths:
       responses:
         '200':
           description: OK
+  /checkPotionIngredient/{id}:
+    get:
+      tags:
+      - potions
+      operationId: checkPotionIngredient
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/IngredientResponse'
 components:
   schemas:
     PotionsCreateRequest:
@@ -109,7 +128,21 @@ components:
         price:
           type: number
           format: double
+        ingredientId:
+          type: string
+          format: uuid
     PotionsResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        ingredientId:
+          type: string
+          format: uuid
+    IngredientResponse:
       type: object
       properties:
         id:

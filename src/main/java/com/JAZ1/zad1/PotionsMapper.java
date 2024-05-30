@@ -7,8 +7,9 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface PotionsMapper {
-
+    //=@Mapping(target = "ingredientId", source = "potionsCreateRequest.id")
     Potion mapToPotion(PotionsCreateRequest potionsCreateRequest);
 
+   // @Mapping(target = "ingredientId", source = "potion.id")
     PotionsResponse mapToPotionsResponse(Potion potion);
 }

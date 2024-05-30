@@ -1,6 +1,8 @@
 package com.JAZ1.zad1;
 
+import com.JAZ1.zad1.FeignInterfaces.IngredientsStore.IngredientDta;
 import com.baeldung.openapi.api.PotionsApi;
+import com.baeldung.openapi.model.IngredientResponse;
 import com.baeldung.openapi.model.PotionsCreateRequest;
 import com.baeldung.openapi.model.PotionsResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,11 @@ public class PotionsController implements PotionsApi {
     public ResponseEntity<PotionsResponse> getPotion(@PathVariable UUID id) {
         PotionsResponse res = service.getPotion(id);
         return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/checkPotionIngredient/{id}")
+    public ResponseEntity<IngredientResponse> checkPotionIngredient(@PathVariable UUID id) {
+        return ResponseEntity.ok(service.getPotionsIngredient(id));
     }
 
     @PutMapping("/updatePotion/{id}")
